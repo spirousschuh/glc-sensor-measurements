@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+service GlucoseSensor {
+    rpc pump_it_up(VolumeRequest) returns (VolumeResponse) {}
+    rpc monitor(MonitoringRequest) returns (stream Measurement) {}
+    rpc record(RecordingRequest) returns (stream Measurement) {}
+}
+
+message VolumeRequest {
+    float volume = 1;
+    float flow_rate = 2;
+}
+
+message VolumeResponse {
+    float duration = 1;
+}
+
+message MonitoringRequest {
+    float duration = 1;
+}
+
+message RecordingRequest {
+    string name = 1;
+    float real_glucose = 2;
+    float real_lactate = 3;
+    float duration = 4;
+}
+
+message Measurement {
+    string timestamp = 1;
+    float glucose_current = 2;
+    float lactate_current = 3;
+}
